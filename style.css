@@ -196,15 +196,12 @@ ul  { list-style: none; }
   width: auto;
   height: 52px;
   object-fit: contain;
-  border-radius: 6px;
-  background: #fff;
-  padding: 4px 10px;
-  transition: box-shadow var(--transition), opacity var(--transition);
+  transition: opacity var(--transition), filter var(--transition);
 }
 
 .header-logo:hover {
-  box-shadow: 0 0 14px rgba(232,104,26,0.4);
-  opacity: 0.92;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 8px rgba(232,104,26,0.5));
 }
 
 .desktop-nav {
@@ -378,28 +375,35 @@ ul  { list-style: none; }
 /* Logo */
 .hero-logo-wrap {
   position: relative;
+  display: inline-block;
   margin-bottom: 32px;
 }
 
-.hero-logo-wrap {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 28px 36px 20px;
-  box-shadow: 0 8px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(232,104,26,0.2);
-  display: inline-block;
-  margin-bottom: 0;
-  transition: box-shadow var(--transition);
-}
-
-.hero-logo-wrap:hover {
-  box-shadow: 0 8px 56px rgba(0,0,0,0.6), 0 0 0 2px rgba(232,104,26,0.4);
+.hero-logo-glow {
+  position: absolute;
+  bottom: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 60px;
+  background: radial-gradient(ellipse at center, rgba(232,104,26,0.3) 0%, transparent 70%);
+  filter: blur(12px);
+  pointer-events: none;
+  z-index: -1;
 }
 
 .hero-logo {
-  width: clamp(240px, 38vw, 400px);
+  width: clamp(260px, 42vw, 480px);
   height: auto;
   object-fit: contain;
   display: block;
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,0.6));
+  transition: filter var(--transition), transform var(--transition);
+}
+
+.hero-logo:hover {
+  filter: drop-shadow(0 8px 32px rgba(232,104,26,0.25)) drop-shadow(0 4px 16px rgba(0,0,0,0.7));
+  transform: translateY(-2px);
 }
 
 /* Hero text */
@@ -989,15 +993,12 @@ ul  { list-style: none; }
   width: auto;
   height: 48px;
   object-fit: contain;
-  border-radius: 6px;
-  background: #fff;
-  padding: 4px 10px;
-  transition: box-shadow var(--transition), opacity var(--transition);
+  transition: opacity var(--transition), filter var(--transition);
 }
 
 .footer-logo:hover {
-  box-shadow: 0 0 12px rgba(232,104,26,0.35);
-  opacity: 0.88;
+  opacity: 0.8;
+  filter: drop-shadow(0 0 8px rgba(232,104,26,0.45));
 }
 
 .footer-center-col {
