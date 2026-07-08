@@ -1199,3 +1199,209 @@ ul  { list-style: none; }
 }
 
 .skip-link:focus { top: 8px; }
+
+
+/* =============================================================
+   CLIENT PORTAL — Nav Link
+   ============================================================= */
+.nav-link--portal {
+  color: var(--orange) !important;
+  position: relative;
+}
+
+.nav-link--portal::before {
+  content: '';
+  position: absolute;
+  left: -14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 5px;
+  background: var(--orange);
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(232,104,26,0.6);
+  animation: portal-pulse 2s ease-in-out infinite;
+}
+
+@keyframes portal-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(232,104,26,0.6); }
+  50%      { opacity: 0.4; box-shadow: 0 0 4px rgba(232,104,26,0.3); }
+}
+
+.nav-link--portal:hover,
+.nav-link--portal:focus-visible {
+  color: var(--orange-light) !important;
+}
+
+.mobile-nav-link--portal {
+  color: var(--orange);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mobile-nav-link--portal:hover {
+  color: var(--orange-light);
+}
+
+
+/* =============================================================
+   CLIENT PORTAL — Section
+   ============================================================= */
+.client-portal {
+  padding: 64px 0 72px;
+  background: var(--bg-primary);
+}
+
+.portal-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 40px 48px;
+  border-radius: 12px;
+  background:
+    linear-gradient(135deg, rgba(232,104,26,0.06) 0%, rgba(232,104,26,0.02) 50%, rgba(232,104,26,0.06) 100%);
+  border: 1px solid rgba(232,104,26,0.2);
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.portal-card:hover {
+  border-color: rgba(232,104,26,0.4);
+  box-shadow: 0 0 48px rgba(232,104,26,0.08);
+}
+
+/* Subtle corner glow */
+.portal-card::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(232,104,26,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.portal-content {
+  flex: 1;
+}
+
+.portal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 14px;
+  padding: 6px 14px;
+  background: rgba(232,104,26,0.1);
+  border: 1px solid rgba(232,104,26,0.2);
+  border-radius: 100px;
+  width: fit-content;
+}
+
+.portal-headline {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.portal-body {
+  font-size: 1.05rem;
+  color: var(--grey-light);
+  line-height: 1.5;
+  max-width: 520px;
+}
+
+.btn-portal {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #111;
+  background: var(--orange);
+  padding: 16px 32px;
+  border-radius: var(--radius-btn);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  flex-shrink: 0;
+}
+
+.btn-portal:hover,
+.btn-portal:focus-visible {
+  background: var(--orange-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-orange);
+  outline: none;
+}
+
+.btn-portal:active { transform: translateY(0); }
+
+.portal-arrow {
+  transition: transform 0.2s ease;
+}
+
+.btn-portal:hover .portal-arrow {
+  transform: translate(2px, -2px);
+}
+
+
+/* =============================================================
+   CLIENT PORTAL — Footer Link
+   ============================================================= */
+.footer-portal-link {
+  color: var(--orange) !important;
+  font-weight: 600;
+  transition: color var(--transition);
+}
+
+.footer-portal-link:hover {
+  color: var(--orange-light) !important;
+}
+
+
+/* =============================================================
+   CLIENT PORTAL — Responsive
+   ============================================================= */
+@media (max-width: 768px) {
+  .portal-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 32px 24px;
+    gap: 28px;
+  }
+
+  .portal-badge {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .portal-body {
+    margin: 0 auto;
+  }
+
+  .btn-portal {
+    width: 100%;
+    justify-content: center;
+    padding: 16px 24px;
+  }
+}
