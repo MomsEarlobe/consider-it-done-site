@@ -11,7 +11,10 @@
 #   ./tools/convert-photos.sh ~/Desktop/deck-photos decks
 #
 # Valid category slugs:
-#   repairs  painting  masonry  decks  rental-prep  hauling  odd-jobs
+#   lawn-landscaping  repairs  remodeling  decks-stonework  hauling
+#
+# For the bulk import straight from Google Drive, use import-photos.sh
+# instead — this script is for adding a one-off folder by hand.
 #
 # What it does, per photo:
 #   1. Converts HEIC -> JPEG (and leaves JPG/PNG as-is for step 2)
@@ -34,7 +37,7 @@ set -euo pipefail
 SRC="${1:-}"
 CATEGORY="${2:-}"
 
-VALID="repairs painting masonry decks rental-prep hauling odd-jobs"
+VALID="lawn-landscaping repairs remodeling decks-stonework hauling"
 
 usage() {
   echo "Usage: $0 <source-folder> <category-slug>"

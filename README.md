@@ -68,28 +68,39 @@ image until `og-share.jpg` exists.
 
 ## Adding work photos
 
+Photos live in Google Drive under
+`06 - Assets, Marketing, and Brand/Photography (Before & After)/`,
+organised as `Before|After / Client / Job Type`.
+
 ```bash
-./tools/convert-photos.sh ~/Desktop/some-photos decks
-python3 tools/build-galleries.py
+./tools/import-photos.sh          # Drive -> assets/work/<category>/
+python3 tools/build-galleries.py  # regenerate work/*.html
 ```
 
-Categories: `repairs` `painting` `masonry` `decks` `rental-prep` `hauling` `odd-jobs`
+`import-photos.sh` holds an explicit **allowlist** mapping Drive job folders
+to the five site categories. Anything not listed is ignored — including every
+`DON'T USE` folder, which is never named and so cannot be published by
+accident. When you shoot a new job, add one line to `MAPPINGS`.
 
-`convert-photos.sh` resizes to 1600px, compresses, and **strips all EXIF**.
+It resolves folders with `find -path`, not shell globbing: nearly every folder
+name contains a space, and an unquoted glob would split `Gwen Sorbel` into two
+words and match nothing. One folder is also named `Sink/Tub Drain`, whose
+slash does not survive to the local disk — that entry uses a `Sink*Drain`
+wildcard so it matches whatever Drive turned it into.
+
+Categories: `lawn-landscaping` `repairs` `remodeling` `decks-stonework` `hauling`
+
+Filenames become captions, with any trailing index stripped:
+`landscaping-03.jpg` → "Landscaping". `cover.jpg` in each folder is the tile
+image on the home page and is excluded from the gallery strip.
+
+`convert-photos.sh` remains for importing a one-off folder by hand.
 
 > **Why the metadata stripping matters.** iPhone photos embed GPS coordinates,
 > and these are photos of *customers' homes*. Publishing them unstripped would
 > put the precise street location of clients' properties on a public website.
-> The script refuses to run without `exiftool` (`brew install exiftool`) and
-> verifies each file afterwards.
-
-Then:
-
-1. Copy one photo to `assets/work/<category>/cover.jpg` — it becomes the tile
-   image on the home page and is excluded from the gallery strip.
-2. Rename files to describe the job; **the filename becomes the caption**
-   (`front-steps-rebuild.jpg` → "Front steps rebuild").
-3. Re-run `build-galleries.py`.
+> Both scripts refuse to run without `exiftool` (`brew install exiftool`) and
+> verify each file afterwards, discarding any that still carries GPS.
 
 A category with no photos renders an honest "Photos coming soon" panel with a
 call button rather than an empty page.
@@ -98,10 +109,10 @@ call button rather than an empty page.
 
 - **Gallery pages are generated.** Edit `tools/build-galleries.py`, not
   `work/*.html`.
-- Service categories are defined in two places that must agree: the cards in
-  `index.html` and `CATEGORIES` in `build-galleries.py`. The contact form's
-  `<select>` should match too, or leads arrive tagged with services that no
-  longer exist.
+- Service categories are defined in three places that must agree: the cards
+  and work tiles in `index.html`, `CATEGORIES` in `build-galleries.py`, and
+  `MAPPINGS` in `import-photos.sh`. The contact form's `<select>` should
+  cover them too, or leads arrive tagged with services that no longer exist.
 - `script.js` is shared by every page, so **every element lookup is
   null-guarded**. Keep it that way — an unguarded `getElementById` throws on
   pages lacking that element and kills all JS on them.

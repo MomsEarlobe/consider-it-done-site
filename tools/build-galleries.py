@@ -28,27 +28,28 @@ PHONE_DISPLAY = "(605) 368-1606"
 PHONE_HREF = "6053681606"
 
 CATEGORIES = [
-    ("repairs",     "01", "Property Repair &amp; Maintenance",
-     "Drywall, flooring, doors, windows, and the general fix-it work that keeps a property running."),
-    ("painting",    "02", "Painting — Interior &amp; Exterior",
-     "Interior walls and ceilings, exterior repaints, trim, doors, and cabinets — prepped properly first."),
-    ("masonry",     "03", "Masonry, Brick &amp; Stone",
-     "Brick and block repair, stone and paver work, tuckpointing, steps, and retaining walls."),
-    ("decks",       "04", "Decks, Stairs &amp; Carpentry",
-     "Deck builds and repairs, stairs and railings, framing, trim, and rotted board replacement."),
-    ("rental-prep", "05", "Rental &amp; Property Prep",
-     "Tenant turnovers, kitchen and bath refreshes, damage repair, and landlord punch lists."),
-    ("hauling",     "06", "Hauling &amp; Cleanouts",
-     "Junk removal, dump runs, estate cleanouts, debris hauling, and full property cleanouts."),
-    ("odd-jobs",    "07", "Odd Jobs &amp; Everything Else",
-     "Lawn mowing, tree trimming, snow removal, gutter cleaning, pressure washing, mounting, "
-     "assembly — the jobs other companies turn down."),
+    ("lawn-landscaping", "01", "Lawn, Landscaping &amp; Tree Care",
+     "Landscaping, lawn care, tree and branch cutting, and seasonal outdoor work "
+     "that keeps a property looking after itself."),
+    ("repairs",          "02", "Repairs &amp; Handyman",
+     "Roofing, drains, weather sealing, flooring, and wall repair — the fix-it work "
+     "that keeps a house running."),
+    ("remodeling",       "03", "Kitchen &amp; Bath Remodeling",
+     "Full kitchen and bathroom remodels, flooring, and the finish work that makes "
+     "a room feel new."),
+    ("decks-stonework",  "04", "Decks, Steps &amp; Stonework",
+     "Deck and stair building, brick laying and re-laying, and exterior steps built "
+     "to last through a South Dakota winter."),
+    ("hauling",          "05", "Hauling &amp; Cleanouts",
+     "Junk removal, dump runs, estate cleanouts, debris hauling, and full property "
+     "cleanouts."),
 ]
 
 IMAGE_EXTS = {".jpg", ".jpeg", ".webp", ".png"}
 
 
 def caption_from(stem: str) -> str:
+    stem = re.sub(r"[-_]\d+$", "", stem)      # "landscaping-03" -> "landscaping"
     text = re.sub(r"[-_]+", " ", stem).strip()
     text = re.sub(r"\s+", " ", text)
     return html.escape(text[:1].upper() + text[1:]) if text else "Completed work"
@@ -263,7 +264,7 @@ def main():
 
     print(f"\nBuilt {len(CATEGORIES)} pages, {total_photos} photos total.")
     if total_photos == 0:
-        print("No photos found yet — run tools/convert-photos.sh first,")
+        print("No photos found yet — run tools/import-photos.sh first,")
         print("then re-run this script to populate the galleries.")
 
 
