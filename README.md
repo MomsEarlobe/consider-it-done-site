@@ -103,6 +103,15 @@ cannot survive to the local disk — that entry uses a `Sink*Drain` wildcard.
 > tag off the *converted* file and rotate the pixels before stripping. If sips
 > already baked it in the tag reads 1 and nothing happens, so it cannot
 > double-rotate.
+>
+> **This is still not fully reliable.** A later pass found eight more photos
+> sideways, in both directions: six landscape files never rotated (sips had
+> already dropped the tag, so there was nothing left to read) and two that were
+> rotated when they should not have been. Aspect ratio does not tell you —
+> a 1600x1200 file can be a sideways portrait. **After any import, look at
+> every photo.** `tools/build-galleries.py` reads the real pixel dimensions of
+> each file, so a wrong rotation shows up as a wrongly shaped box, not just a
+> sideways picture.
 
 ### curate-photos.py + photo-index.tsv
 
@@ -118,6 +127,17 @@ every photo. Each row is `source`, `action` (keep/cover/drop), `category`,
 
 Re-running import then curate always lands in the same place, so the editorial
 decisions survive a re-import.
+
+**Curate is re-runnable on already-curated photos.** Each row's `source` is the
+name the importer produces, but after one run that file has been renamed to its
+destination — so curate resolves each row to *either* the imported name or the
+name the last run gave it. Without that it treated every curated photo as
+missing, cleared the category folders and published almost nothing.
+
+Changing a `new_name` for a photo that is already curated is the one case it
+cannot resolve on its own: the old file is still there under the old caption and
+nothing points to it. Curate stops and says so rather than clearing the folders.
+Rename the file on disk to match, or re-import, then run it again.
 
 > **Why the metadata stripping matters.** iPhone photos embed GPS coordinates,
 > and these are photos of *customers' homes*. Publishing them unstripped would
@@ -142,6 +162,17 @@ call button rather than an empty page.
   null-guarded**. Keep it that way — an unguarded `getElementById` throws on
   pages lacking that element and kills all JS on them.
 
+## The "Our Work" band
+
+Four category tiles. Above 1100px all four fit inside the container, so the band
+is a plain aligned row — its gutter is derived from `--max-width` so the first
+tile lines up exactly with the section heading above it. A vw-based gutter does
+not: it put the tiles 88px left of the heading and made the whole section look
+off-centre. Below 1100px the same markup is a snap scroller with arrows.
+
+A four-item carousel showing three and a half tiles reads as a broken grid, not
+as "there is more to see" — hence the row.
+
 ## Galleries
 
 Horizontal scroll-snap, working with **zero JavaScript**. JS only adds arrows,
@@ -160,3 +191,8 @@ the track barely moves.
 - `GA_MEASUREMENT_ID` in `index.html` is still a placeholder — analytics are
   not recording.
 - Gallery pages are not in a sitemap; there is no `sitemap.xml` or `robots.txt`.
+- Roughly 100 photos in Drive under `all photos/` are not mapped in
+  `MAPPINGS` yet — Doors, Flooring, Odd Jobs, Limb Removal, Plumbing,
+  Point-to-Point Moving. 28 of 55 imported photos currently ship.
+- Two published photos show a crew member's face
+  (`tree-trimming-in-progress`). Confirm that is fine to publish.

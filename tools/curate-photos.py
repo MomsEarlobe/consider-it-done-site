@@ -47,6 +47,26 @@ def load_index():
     return rows
 
 
+def resolve(source, action, category, new_name):
+    """Locate the file this row refers to.
+
+    `source` is the name import-photos.sh produces, but a previous curate run
+    will already have renamed that file to its destination. Re-running curate
+    (say, to change one caption) must not treat every already-curated photo as
+    missing — that would clear the category folders and publish nothing. So
+    fall back to where the last run would have put it.
+    """
+    src = WORK / source
+    if src.is_file():
+        return src
+    suffix = Path(source).suffix
+    if action == "drop":
+        landed = UNUSED / Path(source).name
+    else:
+        landed = WORK / category / f"{new_name}{suffix}"
+    return landed if landed.is_file() else None
+
+
 def main():
     if not INDEX.is_file():
         print(f"ERROR: {INDEX} not found")
@@ -59,8 +79,8 @@ def main():
     missing = []
 
     for source, action, category, new_name in rows:
-        src = WORK / source
-        if not src.is_file():
+        src = resolve(source, action, category, new_name)
+        if src is None:
             missing.append(source)
             continue
         if action == "drop":
@@ -88,6 +108,9 @@ def main():
             shutil.copy2(src, tmp)
 
     for src in drops:
+        if src.parent == UNUSED:
+            print(f"  drop  _unused/{src.name}  (already there)")
+            continue
         print(f"  drop  {src.relative_to(WORK)}  ->  _unused/{src.name}")
         if not DRY:
             UNUSED.mkdir(parents=True, exist_ok=True)
@@ -98,6 +121,22 @@ def main():
             print(f"  -- missing, skipped: {m}")
         print(f"\nDRY RUN — {len(planned)} kept, {len(drops)} dropped, {len(missing)} missing")
         return 0
+
+    # A missing row is nearly always an edit to new_name for a photo a previous
+    # run already renamed on disk — the old file is still there under the old
+    # caption, and this run simply cannot see it. Clearing the category folders
+    # at that point publishes a gallery with the photo silently gone. Stop
+    # instead, and say what to do about it.
+    if missing and "--force" not in sys.argv:
+        print()
+        for m in missing:
+            print(f"  !! cannot find: {m}")
+        print(f"\nABORTED — {len(missing)} of {len(rows)} rows could not be resolved.")
+        print("Nothing was changed. Most likely you renamed new_name for a photo")
+        print("that is already curated, so it still sits under its old caption.")
+        print("Fix by renaming the file on disk to match, re-running")
+        print("./tools/import-photos.sh, or passing --force to drop those rows.")
+        return 1
 
     # clear the five category folders, then lay down the curated set
     categories = {d.parent.name for d in planned} | set(covers)

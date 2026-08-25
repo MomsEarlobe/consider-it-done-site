@@ -25,7 +25,7 @@
 remodeling/home-remodel-02.jpg	cover	remodeling	finished-kitchen-remodel	best photo in the set — white shaker, granite, pendant lights
 remodeling/home-remodel-03.jpg	keep	remodeling	granite-counter-and-appliances	finished counter run with stainless
 remodeling/home-remodel-04.jpg	keep	remodeling	bathroom-vanity-and-flooring	finished bath — vanity, new plank floor
-remodeling/home-remodel-01.jpg	keep	remodeling	kitchen-cabinets-installed	cabinets in, floor still papered
+remodeling/home-remodel-01.jpg	keep	remodeling	cabinets-installed	cabinets in, floor still papered
 remodeling/home-remodel-05.jpg	keep	remodeling	dust-containment-during-demo	sheeting over doorways — reads as careful work
 repairs/flooring-01.jpg	keep	remodeling	new-plank-flooring	moved out of repairs; it is finished remodel work
 repairs/sink-and-tub-drain-01.jpg	keep	remodeling	new-sink-plumbing	clean new p-trap and supply lines
@@ -48,7 +48,7 @@ decks-stonework/front-brick-re-laying-01.jpg	keep	decks-stonework	stone-edging-b
 # ─────────────────────────────────────────────────────────────────────────
 lawn-landscaping/lawn-care-06.jpg	cover	lawn-landscaping	mowed-lawn-and-edging	clean cut lawn — the clearest finished result
 lawn-landscaping/tree-and-branch-cutting-04.jpg	keep	lawn-landscaping	tree-trimming-in-progress	crew working with pole saw
-lawn-landscaping/tree-and-branch-cutting-05.jpg	keep	lawn-landscaping	pole-saw-branch-removal	same job, second angle
+lawn-landscaping/tree-and-branch-cutting-05.jpg	drop	-	-	near-duplicate of tree-trimming-in-progress — same man, truck and frame
 lawn-landscaping/tree-and-branch-cutting-03.jpg	keep	lawn-landscaping	large-branch-removal	branch coming down
 lawn-landscaping/tree-and-branch-cutting-01.jpg	keep	lawn-landscaping	tree-canopy-thinned	cut stub visible from above
 lawn-landscaping/tree-and-branch-cutting-02.jpg	keep	lawn-landscaping	branch-clearance-over-yard	canopy over paver path
@@ -61,7 +61,7 @@ lawn-landscaping/landscaping-10.jpg	keep	lawn-landscaping	yard-overgrowth-before
 # HAULING & CLEANOUTS
 # ─────────────────────────────────────────────────────────────────────────
 hauling/hauling-and-cleanout-02.jpg	cover	hauling	truck-loaded-with-brush	the money shot — load visible
-hauling/hauling-and-cleanout-04.jpg	keep	hauling	yard-debris-before	before state
+hauling/hauling-and-cleanout-04.jpg	keep	hauling	back-yard-cleared	same cleared yard as -05, different angle — not a before shot
 hauling/hauling-and-cleanout-05.jpg	keep	hauling	yard-cleared-after	same yard cleared
 hauling/hauling-and-cleanout-03.jpg	keep	hauling	side-yard-cleared	narrow access cleared
 hauling/hauling-and-cleanout-06.jpg	keep	hauling	walkway-cleared	frontage cleared

@@ -18,6 +18,7 @@ Captions come from the filename: "front-steps-rebuild.jpg" ->
 
 import html
 import re
+import struct
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -43,6 +44,33 @@ CATEGORIES = [
 ]
 
 IMAGE_EXTS = {".jpg", ".jpeg", ".webp", ".png"}
+
+
+def jpeg_size(path: Path):
+    """Intrinsic pixel size, read from the JPEG SOF marker.
+
+    The <img> width/height must match the real file or the browser reserves a
+    box of the wrong shape and the page jumps when the photo loads. Photos here
+    are a mix of portrait and landscape, so this cannot be hard-coded.
+    """
+    try:
+        d = path.read_bytes()
+    except OSError:
+        return None
+    i = 2
+    while i < len(d) - 9:
+        if d[i] != 0xFF:
+            i += 1
+            continue
+        m = d[i + 1]
+        if m in (0xC0, 0xC1, 0xC2, 0xC3, 0xC5, 0xC6, 0xC7, 0xC9, 0xCA, 0xCB, 0xCD, 0xCE, 0xCF):
+            h, w = struct.unpack(">HH", d[i + 5:i + 9])
+            return w, h
+        if m in (0xD8, 0xD9) or 0xD0 <= m <= 0xD7:
+            i += 2
+            continue
+        i += 2 + struct.unpack(">H", d[i + 2:i + 4])[0]
+    return None
 
 
 def caption_from(stem: str) -> str:
@@ -75,14 +103,15 @@ def render(slug, num, title, blurb, photos, prev_cat, next_cat):
     plain_title = html.unescape(title)
 
     if photos:
-        items = "\n".join(
-            f"""          <figure class="gallery-item">
+        def item(p):
+            dim = jpeg_size(p) or (1600, 1200)
+            return f"""          <figure class="gallery-item">
             <img src="../assets/work/{slug}/{p.name}" alt="{caption_from(p.stem)} — Consider It Done, Sioux Falls"
-                 loading="lazy" decoding="async" width="1600" height="1200" />
+                 loading="lazy" decoding="async" width="{dim[0]}" height="{dim[1]}" />
             <figcaption>{caption_from(p.stem)}</figcaption>
           </figure>"""
-            for p in photos
-        )
+
+        items = "\n".join(item(p) for p in photos)
         gallery = f"""      <div class="gallery-wrap">
         <button class="scroll-btn scroll-prev" type="button" aria-label="Previous photo" hidden>
           <span aria-hidden="true">←</span>
