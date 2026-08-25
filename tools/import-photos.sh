@@ -113,6 +113,9 @@ echo "Source: $DRIVE_BASE"
 echo
 
 total=0
+BEFORE_TOTAL=0
+AFTER_TOTAL=0
+AFTER_COVERS=""
 declare -a EMPTY_GLOBS=()
 
 for row in "${MAPPINGS[@]}"; do
@@ -129,6 +132,12 @@ for row in "${MAPPINGS[@]}"; do
     continue
   fi
 
+  # Before/ or After/ is the first path segment
+  case "$pattern" in
+    After/*) phase="After"  ;;
+    *)       phase="Before" ;;
+  esac
+
   n=0
   shopt -s nullglob nocaseglob
   for f in "$folder"/*.{heic,jpg,jpeg,png}; do
@@ -136,39 +145,69 @@ for row in "${MAPPINGS[@]}"; do
     n=$((n + 1))
     if convert_one "$f" "$cat" "$slug" "$n"; then
       total=$((total + 1))
+      # remember the first finished-work photo per category, for the cover
+      if [ "$phase" = "After" ]; then
+        printf -v _line '%s\t%s-%02d.jpg' "$cat" "$slug" "$n"
+        case "$AFTER_COVERS" in
+          *"$cat"$'\t'*) : ;;
+          *) AFTER_COVERS="$AFTER_COVERS$_line"$'\n' ;;
+        esac
+      fi
     else
       n=$((n - 1))
     fi
   done
   shopt -u nullglob nocaseglob
 
-  echo "  $cat/$slug: $n photo(s)"
+  if [ "$phase" = "After" ]; then
+    AFTER_TOTAL=$((AFTER_TOTAL + n))
+  else
+    BEFORE_TOTAL=$((BEFORE_TOTAL + n))
+  fi
+
+  echo "  $cat/$slug: $n photo(s)  [$phase]"
 done
 
 for row in "${LOOSE[@]}"; do
   IFS='|' read -r cat slug rel <<< "$row"
   src="$DRIVE_BASE/$rel"
   if [ -f "$src" ]; then
-    convert_one "$src" "$cat" "$slug" 1 && { total=$((total + 1)); echo "  $cat/$slug: 1 photo"; }
+    convert_one "$src" "$cat" "$slug" 1 && { total=$((total + 1)); BEFORE_TOTAL=$((BEFORE_TOTAL + 1)); echo "  $cat/$slug: 1 photo  [Before]"; }
   else
     echo "  -- not found, skipped: $rel"
   fi
 done
 
-# ── cover image per category (first photo, copied) ───────────────────
+# ── cover image per category ─────────────────────────────────────────
+# The cover is the tile that represents the category on the home page, so it
+# must be FINISHED work. Falling back to "first file alphabetically" once put
+# a before-shot of torn-up flooring on the Repairs tile.
 echo
 for cat in lawn-landscaping repairs remodeling decks-stonework hauling; do
   dir="$REPO_ROOT/assets/work/$cat"
   [ -d "$dir" ] || continue
-  first="$(find "$dir" -maxdepth 1 -name '*.jpg' ! -name 'cover.jpg' | sort | head -1)"
-  if [ -n "$first" ]; then
-    cp "$first" "$dir/cover.jpg"
-    echo "  cover for $cat  <- $(basename "$first")"
+
+  pick=""
+  candidate="$(printf '%s' "$AFTER_COVERS" | awk -F'\t' -v c="$cat" '$1==c {print $2; exit}')"
+  [ -n "$candidate" ] && [ -f "$dir/$candidate" ] && pick="$dir/$candidate"
+
+  if [ -z "$pick" ]; then
+    pick="$(find "$dir" -maxdepth 1 -name '*.jpg' ! -name 'cover.jpg' | sort | head -1)"
+    [ -n "$pick" ] && echo "  !! $cat has no finished-work photo — cover is a BEFORE shot"
+  fi
+
+  if [ -n "$pick" ]; then
+    cp "$pick" "$dir/cover.jpg"
+    echo "  cover for $cat  <- $(basename "$pick")"
   fi
 done
 
 echo
-echo "Imported $total photo(s)."
+echo "Imported $total photo(s):  $BEFORE_TOTAL before, $AFTER_TOTAL finished."
+if [ "$AFTER_TOTAL" -gt 0 ] && [ "$BEFORE_TOTAL" -gt $((AFTER_TOTAL * 2)) ]; then
+  echo "  NOTE: most photos on the site are 'before' shots. Galleries sell better"
+  echo "        with finished work — check the counts per gallery above."
+fi
 if [ "${#EMPTY_GLOBS[@]}" -gt 0 ]; then
   echo
   echo "These folders were not found — check the names in Drive:"
