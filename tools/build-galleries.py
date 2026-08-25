@@ -31,16 +31,13 @@ CATEGORIES = [
     ("lawn-landscaping", "01", "Lawn, Landscaping &amp; Tree Care",
      "Landscaping, lawn care, tree and branch cutting, and seasonal outdoor work "
      "that keeps a property looking after itself."),
-    ("repairs",          "02", "Repairs &amp; Handyman",
-     "Roofing, drains, weather sealing, flooring, and wall repair — the fix-it work "
-     "that keeps a house running."),
-    ("remodeling",       "03", "Kitchen &amp; Bath Remodeling",
-     "Full kitchen and bathroom remodels, flooring, and the finish work that makes "
-     "a room feel new."),
-    ("decks-stonework",  "04", "Decks, Steps &amp; Stonework",
+    ("remodeling",       "02", "Interior Repairs &amp; Remodeling",
+     "Kitchen and bathroom remodels, flooring, plumbing and door repair — the "
+     "inside work that makes a house feel new again."),
+    ("decks-stonework",  "03", "Decks, Steps &amp; Stonework",
      "Deck and stair building, brick laying and re-laying, and exterior steps built "
      "to last through a South Dakota winter."),
-    ("hauling",          "05", "Hauling &amp; Cleanouts",
+    ("hauling",          "04", "Hauling &amp; Cleanouts",
      "Junk removal, dump runs, estate cleanouts, debris hauling, and full property "
      "cleanouts."),
 ]

@@ -73,34 +73,58 @@ Photos live in Google Drive under
 organised as `Before|After / Client / Job Type`.
 
 ```bash
-./tools/import-photos.sh          # Drive -> assets/work/<category>/
-python3 tools/build-galleries.py  # regenerate work/*.html
+./tools/import-photos.sh           # Drive -> assets/work/<category>/
+python3 tools/curate-photos.py     # apply tools/photo-index.tsv
+python3 tools/build-galleries.py   # regenerate work/*.html
 ```
 
-`import-photos.sh` holds an explicit **allowlist** mapping Drive job folders
-to the five site categories. Anything not listed is ignored — including every
-`DON'T USE` folder, which is never named and so cannot be published by
-accident. When you shoot a new job, add one line to `MAPPINGS`.
+**Three steps, in that order.** Import is mechanical — it copies whatever is
+in the mapped Drive folders. Curate is editorial — it decides what actually
+ships, which category it lands in, and what the caption says.
 
-It resolves folders with `find -path`, not shell globbing: nearly every folder
+Categories: `lawn-landscaping` `remodeling` `decks-stonework` `hauling`
+
+### import-photos.sh
+
+Holds an explicit **allowlist** mapping Drive job folders to categories.
+Anything not listed is ignored — including every `DON'T USE` folder, which is
+never named and so cannot be published by accident. New job = one line in
+`MAPPINGS`.
+
+Folders resolve with `find -path`, not shell globbing: nearly every folder
 name contains a space, and an unquoted glob would split `Gwen Sorbel` into two
-words and match nothing. One folder is also named `Sink/Tub Drain`, whose
-slash does not survive to the local disk — that entry uses a `Sink*Drain`
-wildcard so it matches whatever Drive turned it into.
+words and match nothing. One folder is named `Sink/Tub Drain`, whose slash
+cannot survive to the local disk — that entry uses a `Sink*Drain` wildcard.
 
-Categories: `lawn-landscaping` `repairs` `remodeling` `decks-stonework` `hauling`
+> **Rotation.** Phones record "which way was up" in the EXIF Orientation tag
+> rather than rotating the pixels. `sips` does not always apply it and
+> `exiftool -all=` then deletes the tag, so photos publish on their side —
+> this silently affected 20 of the first 55 imported. The scripts now read the
+> tag off the *converted* file and rotate the pixels before stripping. If sips
+> already baked it in the tag reads 1 and nothing happens, so it cannot
+> double-rotate.
 
-Filenames become captions, with any trailing index stripped:
-`landscaping-03.jpg` → "Landscaping". `cover.jpg` in each folder is the tile
-image on the home page and is excluded from the gallery strip.
+### curate-photos.py + photo-index.tsv
 
-`convert-photos.sh` remains for importing a one-off folder by hand.
+`photo-index.tsv` is the editorial layer, written after actually looking at
+every photo. Each row is `source`, `action` (keep/cover/drop), `category`,
+`new_name`, and a note explaining the call.
+
+- Filenames become captions, with any trailing index stripped:
+  `landscaping-03.jpg` → "Landscaping".
+- `cover` marks the category tile on the home page.
+- `drop` moves a photo to `assets/work/_unused/` — **nothing is ever deleted**.
+- A photo can be re-categorised here without touching the Drive mapping.
+
+Re-running import then curate always lands in the same place, so the editorial
+decisions survive a re-import.
 
 > **Why the metadata stripping matters.** iPhone photos embed GPS coordinates,
 > and these are photos of *customers' homes*. Publishing them unstripped would
 > put the precise street location of clients' properties on a public website.
-> Both scripts refuse to run without `exiftool` (`brew install exiftool`) and
-> verify each file afterwards, discarding any that still carries GPS.
+> Both import scripts refuse to run without `exiftool`
+> (`brew install exiftool`) and verify each file afterwards, discarding any
+> that still carries GPS.
 
 A category with no photos renders an honest "Photos coming soon" panel with a
 call button rather than an empty page.
@@ -109,10 +133,11 @@ call button rather than an empty page.
 
 - **Gallery pages are generated.** Edit `tools/build-galleries.py`, not
   `work/*.html`.
-- Service categories are defined in three places that must agree: the cards
-  and work tiles in `index.html`, `CATEGORIES` in `build-galleries.py`, and
-  `MAPPINGS` in `import-photos.sh`. The contact form's `<select>` should
-  cover them too, or leads arrive tagged with services that no longer exist.
+- Service categories are defined in four places that must agree: the cards
+  and work tiles in `index.html`, `CATEGORIES` in `build-galleries.py`,
+  `MAPPINGS` in `import-photos.sh`, and the `category` column in
+  `photo-index.tsv`. The contact form's `<select>` should cover them too, or
+  leads arrive tagged with services that no longer exist.
 - `script.js` is shared by every page, so **every element lookup is
   null-guarded**. Keep it that way — an unguarded `getElementById` throws on
   pages lacking that element and kills all JS on them.

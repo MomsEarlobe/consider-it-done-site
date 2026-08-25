@@ -11,7 +11,7 @@
 #   ./tools/convert-photos.sh ~/Desktop/deck-photos decks
 #
 # Valid category slugs:
-#   lawn-landscaping  repairs  remodeling  decks-stonework  hauling
+#   lawn-landscaping  remodeling  decks-stonework  hauling
 #
 # For the bulk import straight from Google Drive, use import-photos.sh
 # instead — this script is for adding a one-off folder by hand.
@@ -37,7 +37,7 @@ set -euo pipefail
 SRC="${1:-}"
 CATEGORY="${2:-}"
 
-VALID="lawn-landscaping repairs remodeling decks-stonework hauling"
+VALID="lawn-landscaping remodeling decks-stonework hauling"
 
 usage() {
   echo "Usage: $0 <source-folder> <category-slug>"
@@ -118,6 +118,19 @@ for f in "$SRC"/*.{heic,jpg,jpeg,png}; do
        -s formatOptions "$JPEG_QUALITY" \
        --resampleHeightWidthMax "$MAX_EDGE" \
        "$f" --out "$dest" >/dev/null 2>&1
+
+  # 2b. bake rotation into the pixels BEFORE stripping metadata.
+  # Phones record "which way was up" in EXIF Orientation instead of rotating
+  # the pixels; sips does not always apply it, and `exiftool -all=` deletes
+  # the tag, so the photo publishes on its side. Read the tag off the
+  # CONVERTED file — if sips already baked it in the tag reads 1 and nothing
+  # happens, so this cannot double-rotate.
+  orient="$(exiftool -s -s -s -n -Orientation "$dest" 2>/dev/null)"
+  case "$orient" in
+    3) sips -r 180 "$dest" >/dev/null 2>&1 ;;
+    6) sips -r  90 "$dest" >/dev/null 2>&1 ;;
+    8) sips -r 270 "$dest" >/dev/null 2>&1 ;;
+  esac
 
   # 3. strip ALL metadata (GPS included)
   exiftool -all= -overwrite_original -q -q "$dest"

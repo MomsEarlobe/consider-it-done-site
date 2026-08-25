@@ -1,0 +1,97 @@
+# photo-index.tsv — curation manifest, applied by tools/curate-photos.py
+#
+# Written after visually reviewing all 55 imported photos. The importer names
+# files from Drive folder names; this file decides what actually ships, where
+# it goes, and what the caption reads.
+#
+# Columns (tab separated):
+#   source          category/filename as import-photos.sh produces it
+#   action          keep | drop | cover
+#                     keep  = ships, renamed per new_name
+#                     cover = ships AND becomes the category tile
+#                     drop  = moved to assets/work/_unused/ (never deleted)
+#   category        destination category (may differ from where it imported)
+#   new_name        filename without extension; becomes the gallery caption
+#   note            why — for humans, ignored by the script
+#
+# Re-run safe: curate reads this every time, so re-importing then re-curating
+# always lands in the same place.
+
+# ─────────────────────────────────────────────────────────────────────────
+# INTERIOR REPAIRS & REMODELING
+# The strongest finished work in the whole set. Repairs had no presentable
+# finished photos of its own, so the two categories merge here.
+# ─────────────────────────────────────────────────────────────────────────
+remodeling/home-remodel-02.jpg	cover	remodeling	finished-kitchen-remodel	best photo in the set — white shaker, granite, pendant lights
+remodeling/home-remodel-03.jpg	keep	remodeling	granite-counter-and-appliances	finished counter run with stainless
+remodeling/home-remodel-04.jpg	keep	remodeling	bathroom-vanity-and-flooring	finished bath — vanity, new plank floor
+remodeling/home-remodel-01.jpg	keep	remodeling	kitchen-cabinets-installed	cabinets in, floor still papered
+remodeling/home-remodel-05.jpg	keep	remodeling	dust-containment-during-demo	sheeting over doorways — reads as careful work
+repairs/flooring-01.jpg	keep	remodeling	new-plank-flooring	moved out of repairs; it is finished remodel work
+repairs/sink-and-tub-drain-01.jpg	keep	remodeling	new-sink-plumbing	clean new p-trap and supply lines
+repairs/patio-door-weather-sealing-02.jpg	keep	remodeling	patio-door-resealed	interior view out to deck, reads well
+
+# ─────────────────────────────────────────────────────────────────────────
+# DECKS, STEPS & STONEWORK
+# Two genuine before/after pairs, same client each time.
+# ─────────────────────────────────────────────────────────────────────────
+decks-stonework/deck-stair-build-01.jpg	cover	decks-stonework	new-deck-stairs-built	finished stairs, fresh lumber, railing
+decks-stonework/deck-stair-build-02.jpg	keep	decks-stonework	deck-stair-framing	stringers during build
+decks-stonework/deck-stairs-01.jpg	keep	decks-stonework	deck-stairs-before	weathered originals — pairs with the build
+decks-stonework/deck-stairs-02.jpg	keep	decks-stonework	old-deck-before	same job, wider view
+decks-stonework/brick-laying-01.jpg	keep	decks-stonework	stone-edging-and-mulch-bed	finished curved edging, fresh mulch
+decks-stonework/front-brick-re-laying-01.jpg	keep	decks-stonework	stone-edging-before	tumbled blocks — pairs with the above
+
+# ─────────────────────────────────────────────────────────────────────────
+# LAWN, LANDSCAPING & TREE CARE
+# 13 near-identical "overgrown weeds" frames trimmed to a representative few.
+# ─────────────────────────────────────────────────────────────────────────
+lawn-landscaping/lawn-care-06.jpg	cover	lawn-landscaping	mowed-lawn-and-edging	clean cut lawn — the clearest finished result
+lawn-landscaping/tree-and-branch-cutting-04.jpg	keep	lawn-landscaping	tree-trimming-in-progress	crew working with pole saw
+lawn-landscaping/tree-and-branch-cutting-05.jpg	keep	lawn-landscaping	pole-saw-branch-removal	same job, second angle
+lawn-landscaping/tree-and-branch-cutting-03.jpg	keep	lawn-landscaping	large-branch-removal	branch coming down
+lawn-landscaping/tree-and-branch-cutting-01.jpg	keep	lawn-landscaping	tree-canopy-thinned	cut stub visible from above
+lawn-landscaping/tree-and-branch-cutting-02.jpg	keep	lawn-landscaping	branch-clearance-over-yard	canopy over paver path
+lawn-landscaping/lawn-care-01.jpg	keep	lawn-landscaping	fence-line-overgrowth-before	representative before
+lawn-landscaping/lawn-care-02.jpg	keep	lawn-landscaping	side-yard-overgrowth-before	representative before
+lawn-landscaping/lawn-care-05.jpg	keep	lawn-landscaping	overgrown-steps-before	weeds through concrete steps
+lawn-landscaping/landscaping-10.jpg	keep	lawn-landscaping	yard-overgrowth-before	one keeper from the 13-frame set
+
+# ─────────────────────────────────────────────────────────────────────────
+# HAULING & CLEANOUTS
+# ─────────────────────────────────────────────────────────────────────────
+hauling/hauling-and-cleanout-02.jpg	cover	hauling	truck-loaded-with-brush	the money shot — load visible
+hauling/hauling-and-cleanout-04.jpg	keep	hauling	yard-debris-before	before state
+hauling/hauling-and-cleanout-05.jpg	keep	hauling	yard-cleared-after	same yard cleared
+hauling/hauling-and-cleanout-03.jpg	keep	hauling	side-yard-cleared	narrow access cleared
+hauling/hauling-and-cleanout-06.jpg	keep	hauling	walkway-cleared	frontage cleared
+
+# ─────────────────────────────────────────────────────────────────────────
+# DROPPED — moved to assets/work/_unused/, never deleted
+# ─────────────────────────────────────────────────────────────────────────
+repairs/roof-repair-01.jpg	drop	-	-	extreme close-up of one nail head — inspection doc, not portfolio
+repairs/roof-repair-02.jpg	drop	-	-	same
+repairs/roof-repair-03.jpg	drop	-	-	same
+repairs/roof-repair-04.jpg	drop	-	-	same
+repairs/roof-repair-05.jpg	drop	-	-	same
+repairs/sink-and-tub-drain-02.jpg	drop	-	-	plain bathroom sink, no visible work
+repairs/sink-and-tub-drain-03.jpg	drop	-	-	close-up of a tub drain opening
+repairs/sink-and-tub-drain-04.jpg	drop	-	-	close-up of a sink drain opening
+repairs/patio-door-weather-sealing-01.jpg	drop	-	-	weathered board, subject unclear
+repairs/stairwell-wall-repair-01.jpg	drop	-	-	dark, ambiguous, hard to read
+repairs/stairwell-wall-repair-02.jpg	drop	-	-	same
+lawn-landscaping/lawn-care-03.jpg	drop	-	-	PRIVACY — trailer licence plate legible
+lawn-landscaping/lawn-care-04.jpg	drop	-	-	bare sidewalk, no visible work
+lawn-landscaping/landscaping-01.jpg	drop	-	-	thumb in frame
+lawn-landscaping/landscaping-02.jpg	drop	-	-	near-duplicate overgrowth frame
+lawn-landscaping/landscaping-03.jpg	drop	-	-	near-duplicate
+lawn-landscaping/landscaping-04.jpg	drop	-	-	near-duplicate
+lawn-landscaping/landscaping-05.jpg	drop	-	-	near-duplicate
+lawn-landscaping/landscaping-06.jpg	drop	-	-	near-duplicate
+lawn-landscaping/landscaping-07.jpg	drop	-	-	near-duplicate
+lawn-landscaping/landscaping-08.jpg	drop	-	-	near-duplicate
+lawn-landscaping/landscaping-09.jpg	drop	-	-	mostly sky and tree tops
+lawn-landscaping/landscaping-11.jpg	drop	-	-	near-duplicate of 12
+lawn-landscaping/landscaping-12.jpg	drop	-	-	near-duplicate of 11
+lawn-landscaping/landscaping-13.jpg	drop	-	-	near-duplicate
+hauling/hauling-and-cleanout-01.jpg	drop	-	-	photographer's shadow across the frame

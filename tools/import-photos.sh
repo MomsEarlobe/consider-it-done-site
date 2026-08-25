@@ -97,6 +97,21 @@ convert_one() {   # $1=source  $2=category  $3=slug  $4=index
        --resampleHeightWidthMax "$MAX_EDGE" \
        "$src" --out "$dest" >/dev/null 2>&1 || { echo "    !! convert failed: $(basename "$src")"; return 1; }
 
+  # Bake rotation into the pixels BEFORE stripping metadata.
+  # Phones record "which way was up" in the EXIF Orientation tag rather than
+  # rotating the pixels. sips does not always apply it, and `exiftool -all=`
+  # then deletes the tag — so the photo publishes on its side. Read the tag
+  # off the CONVERTED file: if it is still 3/6/8, sips did not bake it in and
+  # we must rotate. If sips already handled it the tag reads 1 and we do
+  # nothing, so this can never double-rotate.
+  local orient
+  orient="$(exiftool -s -s -s -n -Orientation "$dest" 2>/dev/null)"
+  case "$orient" in
+    3) sips -r 180 "$dest" >/dev/null 2>&1 ;;
+    6) sips -r  90 "$dest" >/dev/null 2>&1 ;;
+    8) sips -r 270 "$dest" >/dev/null 2>&1 ;;
+  esac
+
   exiftool -all= -overwrite_original -q -q "$dest"
 
   # verify the strip actually worked before publishing this file
@@ -183,7 +198,7 @@ done
 # must be FINISHED work. Falling back to "first file alphabetically" once put
 # a before-shot of torn-up flooring on the Repairs tile.
 echo
-for cat in lawn-landscaping repairs remodeling decks-stonework hauling; do
+for cat in lawn-landscaping remodeling decks-stonework hauling; do
   dir="$REPO_ROOT/assets/work/$cat"
   [ -d "$dir" ] || continue
 
