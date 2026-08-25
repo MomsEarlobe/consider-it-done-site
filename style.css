@@ -431,6 +431,25 @@ ul  { list-style: none; }
   z-index: 2;
 }
 
+/* Localised scrim behind the hero copy.
+   Measured against the real kitchen photo, a uniform scrim was not enough:
+   average contrast was fine (5-7:1) but worst-case pixels — blown-out
+   pendant bulbs and white cabinets — dropped to 1.67:1. Pooling the
+   darkening behind the text keeps the photo bright everywhere else. */
+.hero-inner::before {
+  content: '';
+  position: absolute;
+  inset: -8% -14%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse 64% 64% at 50% 48%,
+    rgba(6,8,5,0.86) 0%,
+    rgba(6,8,5,0.82) 48%,
+    rgba(6,8,5,0.62) 74%,
+    rgba(6,8,5,0.22) 89%,
+    transparent 100%);
+}
+
 .hero-inner {
   position: relative;
   z-index: 3;
