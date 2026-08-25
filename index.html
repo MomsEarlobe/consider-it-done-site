@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Favicons -->
-  <link rel="icon" type="image/svg+xml" href="assets/favicon-orange.svg" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon-green.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
@@ -19,7 +19,9 @@
   <!-- Open Graph -->
   <meta property="og:title" content="Consider It Done — Sioux Falls Property Maintenance" />
   <meta property="og:description" content="One call. Every property need. Handled." />
-  <meta property="og:image" content="assets/Logo.jpeg" />
+  <meta property="og:image" content="https://consideritdone.help/assets/og-share.jpg" />
+  <meta property="og:image:alt" content="Consider It Done — Sioux Falls property maintenance and handyman services" />
+  <meta name="twitter:card" content="summary_large_image" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://consideritdone.help/" />
 
@@ -47,18 +49,23 @@
   <!-- ===================== HEADER / NAV ===================== -->
   <header class="site-header" id="site-header" role="banner">
     <div class="header-inner container">
-      <a href="#hero" class="logo-link" aria-label="Consider It Done — Home">
-        <img src="assets/CID_Logo_White_Black.png" alt="Consider It Done logo" class="header-logo" width="140" height="52" />
+      <a href="#hero" class="logo-link brand" aria-label="Consider It Done — Home">
+        <img src="assets/CID_Logo_FullColor_Transparent.svg" alt="" aria-hidden="true" class="brand-icon" width="46" height="46" />
+        <span class="brand-text">
+          <span class="brand-name">Consider <span class="brand-it">It</span> Done</span>
+          <span class="brand-tagline">Solutions for your Home and Business</span>
+        </span>
       </a>
 
       <!-- Desktop Nav -->
       <nav class="desktop-nav" aria-label="Primary navigation">
         <a href="#services" class="nav-link">Services</a>
+        <a href="#work" class="nav-link">Our Work</a>
         <a href="#why-us" class="nav-link">About</a>
         <a href="#contact" class="nav-link">Contact</a>
       </nav>
 
-      <a href="#contact" class="btn btn-orange btn-cta-header">Get a Free Estimate</a>
+      <a href="#contact" class="btn btn-accent btn-cta-header">Get a Free Estimate</a>
 
       <!-- Hamburger -->
       <button class="hamburger" id="hamburger-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-nav">
@@ -71,9 +78,10 @@
     <!-- Mobile Nav Drawer -->
     <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" aria-hidden="true">
       <a href="#services" class="mobile-nav-link">Services</a>
+      <a href="#work" class="mobile-nav-link">Our Work</a>
       <a href="#why-us" class="mobile-nav-link">About</a>
       <a href="#contact" class="mobile-nav-link">Contact</a>
-      <a href="#contact" class="btn btn-orange mobile-nav-cta">Get a Free Estimate</a>
+      <a href="#contact" class="btn btn-accent mobile-nav-cta">Get a Free Estimate</a>
     </nav>
   </header>
 
@@ -86,23 +94,31 @@
 
       <div class="hero-inner container">
         <div class="hero-logo-wrap">
-          <img
-            src="assets/CID_Logo_FullColor_Black.png"
-            alt="Consider It Done — Solutions for your Home and Business"
-            class="hero-logo"
-            width="480"
-            height="480"
-          />
+          <div class="brand brand--hero">
+            <img
+              src="assets/CID_Logo_FullColor_OnDark.svg"
+              alt=""
+              aria-hidden="true"
+              class="brand-icon"
+              width="190"
+              height="190"
+            />
+            <div class="brand-text">
+              <h1 class="brand-name">
+                Consider <span class="brand-it">It</span> Done<span class="visually-hidden">
+                  — Sioux Falls Property Maintenance &amp; Handyman Services</span>
+              </h1>
+              <span class="brand-tagline">Solutions for your Home and Business</span>
+            </div>
+          </div>
           <div class="hero-logo-glow" aria-hidden="true"></div>
         </div>
-
-        <h1 class="visually-hidden">Consider It Done — Sioux Falls Property Maintenance &amp; Handyman Services</h1>
 
         <p class="hero-sub">Local Property Maintenance &amp; Handyman Services in Sioux Falls, SD</p>
         <p class="hero-body">From repairs and hauling to lawn care and rental prep — one call handles everything.</p>
 
         <div class="hero-actions">
-          <a href="#contact" class="btn btn-orange btn-lg" id="hero-cta">Get Your Free Estimate</a>
+          <a href="#contact" class="btn btn-accent btn-lg" id="hero-cta">Get Your Free Estimate</a>
           <a href="tel:6053681606" class="hero-call-link">
             <span class="call-icon" aria-hidden="true">📱</span>
             Call or Text: <strong>(605) 368-1606</strong>
@@ -125,55 +141,175 @@
 
         <div class="services-grid">
 
-          <article class="service-card" aria-label="Property Repair service">
+          <a class="service-card" href="work/repairs.html" aria-label="Property Repair &amp; Maintenance — view our work">
+            <span class="card-num" aria-hidden="true">01</span>
             <div class="card-icon" aria-hidden="true">🔧</div>
             <h3 class="card-title">Property Repair &amp; Maintenance</h3>
-            <ul class="card-list" aria-label="Services included">
+            <ul class="card-list">
               <li>Drywall repair &amp; patching</li>
-              <li>Interior &amp; exterior painting</li>
               <li>Flooring repair</li>
               <li>Door &amp; window repairs</li>
               <li>General handyman</li>
             </ul>
-          </article>
+            <span class="card-cta" aria-hidden="true">See the work <span class="card-arrow">→</span></span>
+          </a>
 
-          <article class="service-card" aria-label="Rental & Property Prep service">
+          <a class="service-card" href="work/painting.html" aria-label="Painting — view our work">
+            <span class="card-num" aria-hidden="true">02</span>
+            <div class="card-icon" aria-hidden="true">🎨</div>
+            <h3 class="card-title">Painting — Interior &amp; Exterior</h3>
+            <ul class="card-list">
+              <li>Interior walls &amp; ceilings</li>
+              <li>Exterior repaints</li>
+              <li>Trim, doors &amp; cabinets</li>
+              <li>Prep, patch &amp; prime</li>
+            </ul>
+            <span class="card-cta" aria-hidden="true">See the work <span class="card-arrow">→</span></span>
+          </a>
+
+          <a class="service-card" href="work/masonry.html" aria-label="Masonry, Brick &amp; Stone — view our work">
+            <span class="card-num" aria-hidden="true">03</span>
+            <div class="card-icon" aria-hidden="true">🧱</div>
+            <h3 class="card-title">Masonry, Brick &amp; Stone</h3>
+            <ul class="card-list">
+              <li>Brick &amp; block repair</li>
+              <li>Stone &amp; paver work</li>
+              <li>Tuckpointing</li>
+              <li>Steps &amp; retaining walls</li>
+            </ul>
+            <span class="card-cta" aria-hidden="true">See the work <span class="card-arrow">→</span></span>
+          </a>
+
+          <a class="service-card" href="work/decks.html" aria-label="Decks, Stairs &amp; Carpentry — view our work">
+            <span class="card-num" aria-hidden="true">04</span>
+            <div class="card-icon" aria-hidden="true">🪚</div>
+            <h3 class="card-title">Decks, Stairs &amp; Carpentry</h3>
+            <ul class="card-list">
+              <li>Deck builds &amp; repair</li>
+              <li>Stairs &amp; railings</li>
+              <li>Framing &amp; trim</li>
+              <li>Rot &amp; board replacement</li>
+            </ul>
+            <span class="card-cta" aria-hidden="true">See the work <span class="card-arrow">→</span></span>
+          </a>
+
+          <a class="service-card" href="work/rental-prep.html" aria-label="Rental &amp; Property Prep — view our work">
+            <span class="card-num" aria-hidden="true">05</span>
             <div class="card-icon" aria-hidden="true">🏠</div>
             <h3 class="card-title">Rental &amp; Property Prep</h3>
-            <ul class="card-list" aria-label="Services included">
-              <li>Move-out cleanouts</li>
+            <ul class="card-list">
               <li>Tenant turnover prep</li>
+              <li>Kitchen &amp; bath refresh</li>
               <li>Damage repair</li>
-              <li>Full property refresh</li>
               <li>Landlord punch lists</li>
             </ul>
-          </article>
+            <span class="card-cta" aria-hidden="true">See the work <span class="card-arrow">→</span></span>
+          </a>
 
-          <article class="service-card" aria-label="Hauling & Cleanouts service">
+          <a class="service-card" href="work/hauling.html" aria-label="Hauling &amp; Cleanouts — view our work">
+            <span class="card-num" aria-hidden="true">06</span>
             <div class="card-icon" aria-hidden="true">🚛</div>
             <h3 class="card-title">Hauling &amp; Cleanouts</h3>
-            <ul class="card-list" aria-label="Services included">
-              <li>Junk removal</li>
-              <li>Dump runs</li>
+            <ul class="card-list">
+              <li>Junk removal &amp; dump runs</li>
               <li>Estate cleanouts</li>
               <li>Debris hauling</li>
-              <li>Property cleanouts</li>
+              <li>Full property cleanouts</li>
             </ul>
-          </article>
-
-          <article class="service-card" aria-label="Outdoor Maintenance service">
-            <div class="card-icon" aria-hidden="true">🌿</div>
-            <h3 class="card-title">Outdoor Maintenance</h3>
-            <ul class="card-list" aria-label="Services included">
-              <li>Lawn mowing &amp; edging</li>
-              <li>Snow removal</li>
-              <li>Pressure washing</li>
-              <li>Gutter cleaning</li>
-              <li>Seasonal cleanup</li>
-            </ul>
-          </article>
+            <span class="card-cta" aria-hidden="true">See the work <span class="card-arrow">→</span></span>
+          </a>
 
         </div>
+
+        <!-- Catch-all: odd jobs, incl. lawn / tree / snow -->
+        <a class="odd-jobs" href="work/odd-jobs.html">
+          <div class="odd-jobs-text">
+            <h3 class="odd-jobs-title">Odd Jobs &amp; Everything Else</h3>
+            <p class="odd-jobs-body">
+              Lawn mowing, tree trimming, snow removal, gutter cleaning, pressure washing,
+              furniture assembly, mounting, hanging, fixing. If it's not on the list above —
+              ask anyway. Odd jobs are what we do.
+            </p>
+          </div>
+          <span class="odd-jobs-cta" aria-hidden="true">See the work <span class="card-arrow">→</span></span>
+        </a>
+      </div>
+
+      <div class="section-divider" aria-hidden="true">
+        <div class="divider-line"></div>
+        <div class="divider-diamond">◆</div>
+        <div class="divider-line"></div>
+      </div>
+    </section>
+
+    <!-- ===================== OUR WORK (horizontal scroller) ===================== -->
+    <section class="work" id="work" aria-labelledby="work-heading">
+      <div class="container">
+        <div class="section-label">OUR WORK</div>
+        <h2 class="section-headline" id="work-heading">Real Jobs. Real Photos.</h2>
+      </div>
+
+      <div class="work-scroller-wrap">
+        <button class="scroll-btn scroll-prev" type="button" aria-label="Scroll to previous work categories" hidden>
+          <span aria-hidden="true">←</span>
+        </button>
+
+        <!-- tabindex + role so keyboard users can scroll this region -->
+        <ul class="work-track" id="work-track" tabindex="0" role="region" aria-label="Work categories, horizontally scrollable">
+          <li class="work-tile" style="--cover:url('assets/work/repairs/cover.jpg')">
+            <a href="work/repairs.html">
+              <span class="tile-num" aria-hidden="true">01</span>
+              <span class="tile-title">Repair &amp; Maintenance</span>
+              <span class="tile-cta" aria-hidden="true">View gallery →</span>
+            </a>
+          </li>
+          <li class="work-tile" style="--cover:url('assets/work/painting/cover.jpg')">
+            <a href="work/painting.html">
+              <span class="tile-num" aria-hidden="true">02</span>
+              <span class="tile-title">Painting</span>
+              <span class="tile-cta" aria-hidden="true">View gallery →</span>
+            </a>
+          </li>
+          <li class="work-tile" style="--cover:url('assets/work/masonry/cover.jpg')">
+            <a href="work/masonry.html">
+              <span class="tile-num" aria-hidden="true">03</span>
+              <span class="tile-title">Masonry &amp; Stone</span>
+              <span class="tile-cta" aria-hidden="true">View gallery →</span>
+            </a>
+          </li>
+          <li class="work-tile" style="--cover:url('assets/work/decks/cover.jpg')">
+            <a href="work/decks.html">
+              <span class="tile-num" aria-hidden="true">04</span>
+              <span class="tile-title">Decks &amp; Carpentry</span>
+              <span class="tile-cta" aria-hidden="true">View gallery →</span>
+            </a>
+          </li>
+          <li class="work-tile" style="--cover:url('assets/work/rental-prep/cover.jpg')">
+            <a href="work/rental-prep.html">
+              <span class="tile-num" aria-hidden="true">05</span>
+              <span class="tile-title">Rental &amp; Property Prep</span>
+              <span class="tile-cta" aria-hidden="true">View gallery →</span>
+            </a>
+          </li>
+          <li class="work-tile" style="--cover:url('assets/work/hauling/cover.jpg')">
+            <a href="work/hauling.html">
+              <span class="tile-num" aria-hidden="true">06</span>
+              <span class="tile-title">Hauling &amp; Cleanouts</span>
+              <span class="tile-cta" aria-hidden="true">View gallery →</span>
+            </a>
+          </li>
+          <li class="work-tile" style="--cover:url('assets/work/odd-jobs/cover.jpg')">
+            <a href="work/odd-jobs.html">
+              <span class="tile-num" aria-hidden="true">07</span>
+              <span class="tile-title">Odd Jobs</span>
+              <span class="tile-cta" aria-hidden="true">View gallery →</span>
+            </a>
+          </li>
+        </ul>
+
+        <button class="scroll-btn scroll-next" type="button" aria-label="Scroll to more work categories" hidden>
+          <span aria-hidden="true">→</span>
+        </button>
       </div>
 
       <div class="section-divider" aria-hidden="true">
@@ -186,34 +322,15 @@
     <!-- ===================== PROPERTY MANAGER CALLOUT ===================== -->
     <section class="pm-callout" id="property-managers" aria-labelledby="pm-heading">
       <div class="container">
-        <div class="section-label">FOR PROPERTY MANAGERS</div>
         <h2 class="section-headline" id="pm-heading">One Call. Every Property. Handled.</h2>
         <p class="pm-body">
           Tired of managing five different vendors? We handle repairs, turnovers, hauling,
           lawn care, and snow removal — all under one company. One call and consider it done.
         </p>
 
-        <div class="pm-pillars">
+        <p class="pm-signature">Three guys from Sioux Falls. Not an app. Not a franchise.</p>
 
-          <div class="pm-pillar">
-            <div class="pillar-icon" aria-hidden="true">📞</div>
-            <h3 class="pillar-title">One Number</h3>
-            <p class="pillar-body">Stop juggling vendors. We cover repairs, hauling, outdoor services, and turnovers all under one company.</p>
-          </div>
-
-          <div class="pm-pillar">
-            <div class="pillar-icon" aria-hidden="true">✅</div>
-            <h3 class="pillar-title">We Show Up</h3>
-            <p class="pillar-body">We text when we're on the way and send a photo when the job is done. No ghosting. Ever.</p>
-          </div>
-
-          <div class="pm-pillar">
-            <div class="pillar-icon" aria-hidden="true">📍</div>
-            <h3 class="pillar-title">Local Sioux Falls Team</h3>
-            <p class="pillar-body">Three guys from Sioux Falls. Not an app. Not a franchise.</p>
-          </div>
-
-        </div>
+        <a href="#contact" class="btn btn-accent btn-lg pm-cta">Get Your Free Estimate</a>
       </div>
 
       <div class="section-divider" aria-hidden="true">
@@ -245,20 +362,6 @@
               </div>
             </li>
             <li class="why-item">
-              <span class="why-icon" aria-hidden="true">📸</span>
-              <div>
-                <strong>Photo of completed work sent</strong>
-                <span> after every visit</span>
-              </div>
-            </li>
-            <li class="why-item">
-              <span class="why-icon" aria-hidden="true">🔄</span>
-              <div>
-                <strong>48-hour satisfaction guarantee</strong>
-                <span> — not happy? We come back at no charge</span>
-              </div>
-            </li>
-            <li class="why-item">
               <span class="why-icon" aria-hidden="true">🛡️</span>
               <div>
                 <strong>Insured and local</strong>
@@ -271,17 +374,6 @@
               </div>
             </li>
           </ul>
-
-          <div class="why-mascot" aria-hidden="true">
-            <img
-              src="assets/Logo.jpeg"
-              alt="Consider It Done mascot — handyman giving thumbs up"
-              class="mascot-img"
-              width="300"
-              height="390"
-            />
-            <p class="mascot-caption">Three guys from Sioux Falls.<br/>Not an app. Not a franchise.</p>
-          </div>
         </div>
       </div>
 
@@ -373,10 +465,14 @@
                 <label for="form-service">Service Needed</label>
                 <select id="form-service" name="service">
                   <option value="" disabled selected>Select a service…</option>
-                  <option value="Property Repair & Maintenance">Property Repair &amp; Maintenance</option>
-                  <option value="Rental & Property Prep">Rental &amp; Property Prep</option>
-                  <option value="Hauling & Cleanout">Hauling &amp; Cleanout</option>
-                  <option value="Outdoor Maintenance (Lawn/Snow)">Outdoor Maintenance (Lawn/Snow)</option>
+                  <option value="Property Repair &amp; Maintenance">Property Repair &amp; Maintenance</option>
+                  <option value="Painting — Interior &amp; Exterior">Painting — Interior &amp; Exterior</option>
+                  <option value="Masonry, Brick &amp; Stone">Masonry, Brick &amp; Stone</option>
+                  <option value="Decks, Stairs &amp; Carpentry">Decks, Stairs &amp; Carpentry</option>
+                  <option value="Rental &amp; Property Prep">Rental &amp; Property Prep</option>
+                  <option value="Hauling &amp; Cleanouts">Hauling &amp; Cleanouts</option>
+                  <option value="Lawn, Tree &amp; Snow">Lawn, Tree &amp; Snow</option>
+                  <option value="Odd Jobs / Something Else">Odd Jobs / Something Else</option>
                   <option value="Not Sure — Just Need Help">Not Sure — Just Need Help</option>
                 </select>
               </div>
@@ -391,7 +487,7 @@
                 ></textarea>
               </div>
 
-              <button type="submit" class="btn btn-orange btn-full" id="form-submit">
+              <button type="submit" class="btn btn-accent btn-full" id="form-submit">
                 Request My Free Estimate
               </button>
 
@@ -453,8 +549,11 @@
   <footer class="site-footer" role="contentinfo">
     <div class="footer-inner container">
       <div class="footer-logo-col">
-        <a href="#hero" aria-label="Consider It Done — Back to top">
-          <img src="assets/CID_Logo_White_Black.png" alt="Consider It Done logo" class="footer-logo" width="130" height="48" />
+        <a href="#hero" class="brand brand--footer" aria-label="Consider It Done — Back to top">
+          <img src="assets/CID_Logo_FullColor_Transparent.svg" alt="" aria-hidden="true" class="brand-icon" width="40" height="40" />
+          <span class="brand-text">
+            <span class="brand-name">Consider <span class="brand-it">It</span> Done</span>
+          </span>
         </a>
       </div>
 

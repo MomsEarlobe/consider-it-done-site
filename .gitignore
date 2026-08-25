@@ -1,2 +1,4 @@
 sync-to-drive.sh
 .DS_Store
+__pycache__/
+*.pyc
